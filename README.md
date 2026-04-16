@@ -6,9 +6,8 @@
 ![Spacy](https://img.shields.io/badge/NLP-SpaCy-green)
 ![Tailwind](https://img.shields.io/badge/CSS-Tailwind-38B2AC?logo=tailwind-css)
 
-An Intelligent Human Resources Dashboard equipped with **Natural Language Processing (NLP)** and **Machine Learning (ML)** to automatically analyze candidate resumes, extract professional skills, and compute dynamic skill gaps against target job requirements. 
-
-Built with a stunning glassmorphism user interface designed for 2026.
+## 📖 About This Project
+**Human Resources Skill Gap Mining** is an AI-powered recruitment engine designed to bridge the gap between candidate resumes and job role requirements. By using **SpaCy (NLP)**, it instantly reads uploaded PDF resumes to extract an applicant's technical and soft skills. It then applies **Scikit-Learn (TF-IDF Machine Learning)** to mathematically compare these extracted skills against industry-standard job requirements based on real-world Kaggle datasets. The final output is rendered on a premium, interactive web dashboard that provides HR managers with an exact match percentage and generates a personalized "Upskilling Path" detailing the exact skills the candidate is missing.
 
 ---
 
