@@ -2,11 +2,12 @@ import os
 import spacy
 from PyPDF2 import PdfReader
 
-# Load Spacy model safely
+# Load Spacy model safely for Vercel
 try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    print("Downloading en_core_web_sm...")
+    import en_core_web_sm
+    nlp = en_core_web_sm.load()
+except ImportError:
+    print("Downloading en_core_web_sm locally...")
     spacy.cli.download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
 
