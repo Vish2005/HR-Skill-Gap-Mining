@@ -28,14 +28,14 @@ def analyze():
         return jsonify({'error': 'No selected file'}), 400
     
     filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
+    ext = os.path.splitext(filename)[1].lower()
     
     target_role = request.form.get('target_role', 'Data Scientist')
     
     required_skills = load_dataset_skills(target_role)
     
-    candidate_skills = extract_skills_from_text(filepath)
+    # Extract directly from memory stream (Vercel Serverless safe)
+    candidate_skills = extract_skills_from_text(file.stream, ext=ext)
     
     gap_analysis = calculate_skill_gap(candidate_skills, required_skills)
     

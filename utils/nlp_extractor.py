@@ -23,26 +23,40 @@ COMMON_SKILLS = [
     "communication", "problem solving", "teamwork", "time management", "flask", "django"
 ]
 
-def extract_text_from_file(filepath):
-    """Extracts raw text from pdf or txt files."""
-    ext = os.path.splitext(filepath)[1].lower()
+def extract_text_from_file(filepath_or_stream, ext=None):
+    """Extracts raw text from pdf or txt files/streams."""
     text = ""
-    if ext == ".pdf":
-        reader = PdfReader(filepath)
-        for page in reader.pages:
-            t = page.extract_text()
-            if t:
-                text += t + " "
-    elif ext == ".txt":
-        with open(filepath, 'r', encoding='utf-8') as f:
-            text = f.read()
+    
+    # If it's a string, assume it's a filepath
+    if isinstance(filepath_or_stream, str):
+        if ext is None:
+            ext = os.path.splitext(filepath_or_stream)[1].lower()
+        
+        if ext == ".pdf":
+            reader = PdfReader(filepath_or_stream)
+            for page in reader.pages:
+                t = page.extract_text()
+                if t:
+                    text += t + " "
+        elif ext == ".txt":
+            with open(filepath_or_stream, 'r', encoding='utf-8') as f:
+                text = f.read()
     else:
-        print(f"Unsupported file format: {ext}")
+        # It's a file stream (like Werkzeug FileStorage stream)
+        if ext == ".pdf":
+            reader = PdfReader(filepath_or_stream)
+            for page in reader.pages:
+                t = page.extract_text()
+                if t:
+                    text += t + " "
+        elif ext == ".txt":
+            text = filepath_or_stream.read().decode('utf-8', errors='ignore')
+            
     return text
 
-def extract_skills_from_text(filepath):
+def extract_skills_from_text(filepath_or_stream, ext=None):
     """Reads the file and extracts skills using SpaCy based NLP rules."""
-    text = extract_text_from_file(filepath)
+    text = extract_text_from_file(filepath_or_stream, ext)
     if not text:
         return []
     
