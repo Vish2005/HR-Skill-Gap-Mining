@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring DevOps Engineer
+
+SUMMARY
+A highly experienced DevOps Engineer with 5+ years of industry experience.
+Very proficient in aws, docker, kubernetes, jenkins, git, gitlab, python, linux, agile.
+
+SKILLS
+aws, docker, kubernetes, jenkins, git, gitlab, python, linux, agile

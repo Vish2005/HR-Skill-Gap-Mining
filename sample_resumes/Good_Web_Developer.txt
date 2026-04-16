@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Web Developer
+
+SUMMARY
+A highly experienced Web Developer with 5+ years of industry experience.
+Very proficient in html, css, javascript, react, node.js, git, mongodb.
+
+SKILLS
+html, css, javascript, react, node.js, git, mongodb

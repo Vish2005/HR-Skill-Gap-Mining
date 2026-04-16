@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Financial Analyst
+
+SUMMARY
+A highly experienced Financial Analyst with 5+ years of industry experience.
+Very proficient in sql, pandas, numpy, statistics, data analysis, problem solving, communication.
+
+SKILLS
+sql, pandas, numpy, statistics, data analysis, problem solving, communication

@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Data Analyst
+
+SUMMARY
+A highly experienced Data Analyst with 5+ years of industry experience.
+Very proficient in sql, python, data visualization, statistics, pandas, communication, problem solving.
+
+SKILLS
+sql, python, data visualization, statistics, pandas, communication, problem solving

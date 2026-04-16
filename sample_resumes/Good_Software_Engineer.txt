@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Software Engineer
+
+SUMMARY
+A highly experienced Software Engineer with 5+ years of industry experience.
+Very proficient in python, java, c++, javascript, git, problem solving, agile, sql.
+
+SKILLS
+python, java, c++, javascript, git, problem solving, agile, sql

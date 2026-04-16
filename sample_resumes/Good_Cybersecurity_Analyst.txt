@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Cybersecurity Analyst
+
+SUMMARY
+A highly experienced Cybersecurity Analyst with 5+ years of industry experience.
+Very proficient in python, sql, problem solving, communication, time management, linux, networking.
+
+SKILLS
+python, sql, problem solving, communication, time management, linux, networking

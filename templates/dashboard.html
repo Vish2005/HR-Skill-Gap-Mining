@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Skill Gap Mining for 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4f46e5',
+                        secondary: '#ec4899',
+                        dark: '#0f172a',
+                        card: 'rgba(30, 41, 59, 0.7)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-dark text-white min-h-screen font-sans overflow-x-hidden relative">
+
+    <!-- Ambient background glows -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary rounded-full mix-blend-screen filter blur-[120px] opacity-30 animate-pulse-slow"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[30rem] h-[30rem] bg-secondary rounded-full mix-blend-screen filter blur-[150px] opacity-20 animate-pulse-slow animation-delay-2000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-tr from-primary to-secondary p-2 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-chart-pie text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">SkillGap AI 2026</span>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <!-- Header Section -->
+        <div class="mb-10 text-center animate-fade-in-up">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Intelligent <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">HR Mining</span></h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">Analyze resumes against job requirements using NLP and Machine Learning to discover precise upskilling paths.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Panel: Input Form -->
+            <div class="lg:col-span-4 space-y-6">
+                <div class="glass-card rounded-2xl p-6 border border-gray-800 shadow-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-up text-primary"></i> Upload Resume
+                    </h2>
+                    
+                    <form id="analysis-form" enctype="multipart/form-data">
+                        <!-- Role Selection -->
+                        <div class="mb-5 relative">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Target Job Role</label>
+                            <div class="relative">
+                                <select name="target_role" class="w-full bg-slate-800/80 border border-gray-700 rounded-xl px-4 py-3 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                                    <option value="Data Scientist">Data Scientist</option>
+                                    <option value="Software Engineer">Software Engineer</option>
+                                    <option value="Web Developer">Web Developer</option>
+                                    <option value="HR Manager">HR Manager</option>
+                                    <option value="Product Manager">Product Manager</option>
+                                    <option value="Marketing Specialist">Marketing Specialist</option>
+                                    <option value="Financial Analyst">Financial Analyst</option>
+                                    <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
+                                    <option value="Cloud Engineer">Cloud Engineer</option>
+                                    <option value="UI/UX Designer">UI/UX Designer</option>
+                                    <option value="DevOps Engineer">DevOps Engineer</option>
+                                    <option value="Data Analyst">Data Analyst</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                                    <i class="fa-solid fa-chevron-down text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Dropzone -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Candidate Resume (PDF/TXT)</label>
+                            <div class="border-2 border-dashed border-gray-700 rounded-xl p-8 hover:border-primary transition-colors duration-300 text-center cursor-pointer glass-panel relative group" id="dropzone">
+                                <input type="file" name="resume" id="resume-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept=".pdf,.txt" required>
+                                <div class="text-gray-400 group-hover:text-white transition-colors">
+                                    <i class="fa-solid fa-cloud-arrow-up text-4xl mb-3 text-primary group-hover:scale-110 transition-transform duration-300 transform"></i>
+                                    <p class="text-sm font-medium"><span class="text-primary hover:underline">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 mt-1" id="file-name-display">PDF, TXT up to 5MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-white transition-all duration-200 bg-primary border border-transparent rounded-xl hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)]">
+                            <span>Analyze Candidate</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Status / Loading Area -->
+                <div id="loading-indicator" class="hidden glass-card rounded-2xl p-6 border border-gray-800 text-center">
+                    <div class="inline-block relative w-12 h-12">
+                        <div class="absolute top-0 left-0 w-full h-full border-4 border-gray-700 rounded-full"></div>
+                        <div class="absolute top-0 left-0 w-full h-full border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
+                    </div>
+                    <p class="mt-4 text-sm font-medium text-gray-300 animate-pulse">Running NLP & ML pipelines...</p>
+                </div>
+            </div>
+
+            <!-- Right Panel: Dashboard Results (Initially Hidden) -->
+            <div class="lg:col-span-8 flex flex-col justify-center items-center h-full min-h-[500px]" id="empty-state">
+                <div class="text-center p-8">
+                    <div class="w-24 h-24 rounded-full bg-slate-800 flex items-center justify-center mx-auto mb-6 shadow-inner">
+                        <i class="fa-solid fa-chart-network text-4xl text-gray-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-300 mb-2">No Analysis Data</h3>
+                    <p class="text-gray-500 max-w-sm mx-auto">Upload a resume and select a job role to view the skill gap mining insights.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 hidden space-y-6" id="results-dashboard">
+                <!-- Top Metrics -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="glass-card rounded-2xl p-5 border border-gray-800 transform hover:-translate-y-1 transition-transform duration-300">
+                        <p class="text-sm font-medium text-gray-400 mb-1">Skill Match</p>
+                        <div class="flex items-end gap-2">
+                            <h3 class="text-4xl font-bold text-white" id="match-score">0%</h3>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-1.5 mt-4">
+                            <div class="bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 h-1.5 rounded-full transition-all duration-1000 w-0" id="match-progress"></div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-5 border border-gray-800 transform hover:-translate-y-1 transition-transform duration-300">
+                        <p class="text-sm font-medium text-gray-400 mb-1">Extracted Skills</p>
+                        <h3 class="text-4xl font-bold text-white" id="present-count">0</h3>
+                        <p class="text-xs text-primary mt-2 flex items-center"><i class="fa-solid fa-check-circle mr-1"></i> From resume payload</p>
+                    </div>
+                    <div class="glass-card rounded-2xl p-5 border border-gray-800 transform hover:-translate-y-1 transition-transform duration-300">
+                        <p class="text-sm font-medium text-gray-400 mb-1">Missing Elements</p>
+                        <h3 class="text-4xl font-bold text-white" id="missing-count">0</h3>
+                        <p class="text-xs text-secondary mt-2 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Skill gap identified</p>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card rounded-2xl p-6 border border-gray-800">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-secondary"></i> Distribution
+                        </h3>
+                        <div class="relative h-64 w-full flex items-center justify-center">
+                            <canvas id="distributionChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendations List -->
+                    <div class="glass-card rounded-2xl p-6 border border-gray-800 flex flex-col">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-primary"></i> Upskilling Path
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-4">Recommended learning priorities based on ML gap analysis:</p>
+                        <ul class="space-y-3 flex-1 overflow-y-auto pr-2 custom-scrollbar" id="recommendations-list">
+                            <!-- JS injected elements -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Detailed Skills Breakdown -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-800">
+                    <h3 class="text-lg font-semibold mb-4">Skill Profile Breakdown</h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Candidate Arsenal</h4>
+                        <div class="flex flex-wrap gap-2" id="present-skills-tags">
+                            <!-- JS injected -->
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-sm font-medium text-gray-400 mb-2 uppercase tracking-wide">Required (Missing)</h4>
+                        <div class="flex flex-wrap gap-2" id="missing-skills-tags">
+                            <!-- JS injected -->
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

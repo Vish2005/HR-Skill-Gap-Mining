@@ -1,0 +1,9 @@
+Alex Pro
+Aspiring Cloud Engineer
+
+SUMMARY
+A highly experienced Cloud Engineer with 5+ years of industry experience.
+Very proficient in aws, azure, gcp, docker, kubernetes, python, linux, problem solving.
+
+SKILLS
+aws, azure, gcp, docker, kubernetes, python, linux, problem solving
