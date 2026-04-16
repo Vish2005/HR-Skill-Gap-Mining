@@ -10,6 +10,8 @@ An Intelligent Human Resources Dashboard equipped with **Natural Language Proces
 
 Built with a stunning glassmorphism user interface designed for 2026.
 
+🚀 **Live Demo:** [https://hr-skill-gap-mining.vercel.app](https://hr-skill-gap-mining.vercel.app)
+
 ---
 
 ## ✨ Key Features
